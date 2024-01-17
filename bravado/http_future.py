@@ -39,7 +39,7 @@ class HttpFuture(object):
         response in a non-http client specific way.
     :type response_adapter: type that is a subclass of
         :class:`bravado_core.response.IncomingResponse`.
-    :param response_callbacks: See bravado.client.REQUEST_OPTIONS_DEFAULTS
+    :param response_callbacks: See bravado_core.client.REQUEST_OPTIONS_DEFAULTS
     :param also_return_response: Determines if the incoming http response is
         included as part of the return value from calling
         `HttpFuture.result()`.
