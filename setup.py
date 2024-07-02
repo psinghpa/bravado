@@ -11,7 +11,7 @@ import bravado
 setup(
     name="bravado",
     # cloudlock version, with no twisted dependency
-    version="4.11.0",
+    version="4.11.2",
     license="BSD 3-Clause License",
     description="Library for accessing Swagger-enabled API's",
     long_description=open(os.path.join(os.path.dirname(__file__),
@@ -35,7 +35,7 @@ setup(
         "yelp-bytes==0.4.4",
         "python-dateutil==2.8.2",
         "PyYAML==6.0",
-        "requests==2.31.0",
+        "requests==2.32.30001",
         "six==1.16.0",
     ],
     extras_require={
