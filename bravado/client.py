@@ -50,7 +50,6 @@ from bravado_core.exception import SwaggerMappingError
 from bravado_core.formatter import SwaggerFormat  # noqa
 from bravado_core.param import marshal_param
 from bravado_core.spec import Spec
-from six import iteritems, itervalues
 
 from bravado.docstring_property import docstring_property
 from bravado.requests_client import RequestsClient
@@ -105,7 +104,7 @@ class SwaggerClient(object):
 
         :rtype: :class:`bravado_core.spec.Spec`
         """
-        log.debug(u"Loading from %s" % spec_url)
+        log.debug("Loading from %s" % spec_url)
         http_client = http_client or RequestsClient()
         loader = Loader(http_client, request_headers=request_headers)
         spec_dict = loader.load_spec(spec_url)
@@ -147,7 +146,7 @@ class SwaggerClient(object):
         return self.swagger_spec.definitions[model_name]
 
     def __repr__(self):
-        return u"%s(%s)" % (self.__class__.__name__, self.swagger_spec.api_url)
+        return "%s(%s)" % (self.__class__.__name__, self.swagger_spec.api_url)
 
     def __getattr__(self, item):
         """
@@ -165,7 +164,7 @@ class SwaggerClient(object):
         return ResourceDecorator(resource)
 
     def __dir__(self):
-        return self.swagger_spec.resources.keys()
+        return list(self.swagger_spec.resources.keys())
 
 
 def inject_headers_for_remote_refs(request_callable, request_headers):
@@ -238,7 +237,7 @@ class CallableOperation(object):
 
         :rtype: :class:`bravado.http_future.HTTPFuture`
         """
-        log.debug(u"%s(%s)" % (self.operation.operation_id, op_kwargs))
+        log.debug("%s(%s)" % (self.operation.operation_id, op_kwargs))
         warn_for_deprecated_op(self.operation)
 
         # Apply request_options defaults
@@ -304,7 +303,7 @@ def construct_params(operation, request, op_kwargs):
         parameter is not supplied.
     """
     current_params = operation.params.copy()
-    for param_name, param_value in iteritems(op_kwargs):
+    for param_name, param_value in op_kwargs.items():
         param = current_params.pop(param_name, None)
         if param is None:
             raise SwaggerMappingError(
@@ -313,7 +312,7 @@ def construct_params(operation, request, op_kwargs):
         marshal_param(param, param_value, request)
 
     # Check required params and non-required params with a 'default' value
-    for remaining_param in itervalues(current_params):
+    for remaining_param in current_params.values():
         if remaining_param.location == 'header' and remaining_param.name in request['headers']:
             marshal_param(remaining_param, request['headers'][remaining_param.name], request)
         else:

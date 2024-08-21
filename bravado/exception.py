@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from six import with_metaclass
+
 
 
 # Dictionary of HTTP status codes to exception classes
@@ -25,7 +25,7 @@ class HTTPErrorType(type):
         return new_class
 
 
-class HTTPError(with_metaclass(HTTPErrorType, IOError)):
+class HTTPError(IOError, metaclass=HTTPErrorType):
     """Unified HTTPError used across all http_client implementations.
     """
 
